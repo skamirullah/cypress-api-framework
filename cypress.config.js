@@ -7,7 +7,7 @@ module.exports = defineConfig({
 
   // 🔁 Switch reporter based on environment
   reporter: isCI
-    ? "allure"
+    ? "@shelex/cypress-allure-plugin"
     : "cypress-mochawesome-reporter",
 
   reporterOptions: isCI
