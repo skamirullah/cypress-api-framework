@@ -33,8 +33,8 @@ module.exports = defineConfig({
       // 🔌 Reporter plugins
       if (isCI) {
         // Allure plugin for Jenkins
-        require("allure-cypress/on")(on, config);
-        console.log("🔍 Cypress reporter: Allure (CI)");
+        // require("allure-cypress/on")(on, config);
+        // console.log("🔍 Cypress reporter: Allure (CI)");
       } else {
         // Mochawesome plugin for local
         require("cypress-mochawesome-reporter/plugin")(on);
