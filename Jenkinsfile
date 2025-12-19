@@ -89,18 +89,11 @@ pipeline {
 
     post {
         always {
-            script {
-                if (env.CI) {
-                    echo "Publishing Allure report"
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        results: [[path: 'allure-results']]
-                    ])
-                }
-            }
+            allure([
+            results: [[path: 'allure-results']]
+            ])
             cleanWs()
         }
-    }
+   }
 
 }
