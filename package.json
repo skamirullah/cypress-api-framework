@@ -17,10 +17,10 @@
     "test:headless": "cypress run --headless",
     "report:clean": "rm -rf reports",
     "report:open": "open reports/index.html",
-    "ci:test:qa": "npm run report:clean && cypress run --env env=qa",
-    "ci:test:dev": "npm run report:clean && cypress run --env env=dev",
+    "ci:test:qa": "cypress run --env env=qa",
+    "ci:test:dev": "cypress run --env env=dev",
     "test": "npm run test:qa",
-    "report:merge": "mochawesome-merge reports/json/*.json > reports/report.json",
+    "report:merge": "mochawesome-merge mocha-json/*.json > reports/report.json",
     "report:generate": "marge reports/report.json --reportDir reports --inline"
   },
   "keywords": [
@@ -35,6 +35,8 @@
   "license": "ISC",
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "allure-commandline": "^2.36.0",
     "cypress": "^15.8.0",
     "cypress-mochawesome-reporter": "^4.0.2",
     "mochawesome-merge": "^5.1.0",

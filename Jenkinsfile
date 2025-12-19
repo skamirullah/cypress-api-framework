@@ -54,30 +54,6 @@ pipeline {
             }
         }
 
-        stage('Generate HTML Report') {
-            steps {
-                sh '''
-                  npm run report:merge
-                  npm run report:generate
-                '''
-            }
-        }
-
-        stage('Debug Report Files') {
-            steps {
-                sh '''
-                  echo "=== Reports folder ==="
-                  ls -la reports || true
-
-                  echo "=== index.html size ==="
-                  wc -c reports/index.html || true
-
-                  echo "=== First 20 lines of index.html ==="
-                  head -n 20 reports/index.html || true
-                '''
-            }
-        }
-
         stage('Publish Cypress Report') {
             steps {
                 publishHTML(target: [
