@@ -1,0 +1,41 @@
+{
+  "name": "cypress-api-framework",
+  "version": "1.0.0",
+  "description": "Cypress API Automation Framework with Mochawesome Reporting",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:dev": "cypress run --env env=dev",
+    "test:qa": "cypress run --env env=qa",
+    "test:prod": "cypress run --env env=prod",
+    "test:auth": "cypress run --spec cypress/e2e/api/auth.login.cy.js",
+    "test:api": "cypress run --spec cypress/e2e/api/**/*.cy.js",
+    "test:chrome": "cypress run --browser chrome",
+    "test:headed": "cypress run --headed",
+    "test:headless": "cypress run --headless",
+    "report:clean": "rm -rf reports",
+    "report:open": "open reports/index.html",
+    "ci:test:qa": "npm run report:clean && cypress run --env env=qa",
+    "ci:test:dev": "npm run report:clean && cypress run --env env=dev",
+    "test": "npm run test:qa"
+  },
+  "keywords": [
+    "cypress",
+    "api-automation",
+    "mochawesome",
+    "testing",
+    "qa",
+    "automation-framework"
+  ],
+  "author": "Sk Amir U",
+  "license": "ISC",
+  "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "cypress": "^15.8.0",
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "mochawesome-merge": "^5.1.0",
+    "mochawesome-report-generator": "^6.3.2"
+  }
+}
