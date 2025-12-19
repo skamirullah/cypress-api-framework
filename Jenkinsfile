@@ -45,9 +45,11 @@ pipeline {
             steps {
                 ansiColor('xterm') {
                     sh '''
-                      npx cypress run --browser electron --headless
-                      --config-file cypress.config.js
-                    '''
+                        npx cypress run \
+                            --browser electron \
+                            --headless \
+                            --config-file cypress.config.js
+                        '''
                 }
             }
         }
