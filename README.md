@@ -119,11 +119,14 @@ npm run cy:open
 * Secrets masked in reports
 * No test source code displayed in reports
 
-### Report Location
+## Live Report Dashboards
 
-```
-reports/index.html
-```
+
+### API Test Automation Report
+
+
+![API Tests Report](screenshots/cypress-api-report.png)
+
 
 ## Environment Management
 
