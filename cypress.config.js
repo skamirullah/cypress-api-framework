@@ -21,6 +21,7 @@ module.exports = defineConfig({
 
     setupNodeEvents(on, config) {
       require("cypress-mochawesome-reporter/plugin")(on);
+      console.log('🔍 Cypress reporter:', 'cypress-mochawesome-reporter');
       const envName = config.env.env || "qa";
       const envConfig = getEnvConfig(envName);
       config.baseUrl = envConfig.baseUrl;
