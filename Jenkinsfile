@@ -54,16 +54,23 @@ pipeline {
             }
         }
 
-        stage('Publish Cypress Report') {
+        stage('Publish Reports') {
             steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'index.html',
-                    reportName: 'Cypress API Test Report'
-                ])
+                script {
+                    if (!env.CI) {
+                        // Local / non-CI (Mochawesome)
+                        publishHTML(target: [
+                            allowMissing: true,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: 'reports',
+                            reportFiles: 'index.html',
+                            reportName: 'Cypress API Test Report'
+                        ])
+                    } else {
+                        echo "CI run detected – Mochawesome HTML not published"
+                    }
+                }
             }
         }
     }
