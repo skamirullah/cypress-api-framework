@@ -8,22 +8,6 @@ pipeline {
 
   stages {
 
-    stage('Debug Workspace') {
-      steps {
-        sh ''
-        '
-        echo "Current directory:"
-        pwd
-
-        echo "Workspace contents:"
-        ls - la
-
-        echo "Check package-lock.json:"
-        ls - la package - lock.json || echo "❌ package-lock.json NOT FOUND"
-        ''
-        '
-      }
-    }
     stage('Checkout') {
       steps {
         checkout scm
