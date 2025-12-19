@@ -15,10 +15,15 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
-// ALWAYS load Allure runtime in CI
+// Load Allure runtime in CI
 if (process.env.CI === "true") {
     require("@shelex/cypress-allure-plugin");
 }
+
+// Force Cypress command execution so Allure captures tests
+beforeEach(() => {
+    cy.wrap(true, { log: false });
+});
 
 // Load Mochawesome only for local runs
 if (process.env.CI !== "true") {
