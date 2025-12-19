@@ -1,5 +1,7 @@
 const { defineConfig } = require("cypress");
 const { getEnvConfig } = require("./cypress/utils/envManager");
+const { allureCypressTasks } = require("allure-cypress/task");
+
 
 const isCI = process.env.CI === "true";
 
@@ -30,6 +32,7 @@ module.exports = defineConfig({
 
     setupNodeEvents(on, config) {
 
+      on("task", allureCypressTasks());
       // 🔌 Reporter plugins
       if (isCI) {
         // Allure plugin for Jenkins
