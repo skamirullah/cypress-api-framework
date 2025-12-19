@@ -58,7 +58,7 @@ pipeline {
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
                     reportDir: 'reports/',
-                    reportFiles: '*.html',
+                    reportFiles: 'index.html',
                     reportName: 'Cypress API Test Report'
                 ])
             }
