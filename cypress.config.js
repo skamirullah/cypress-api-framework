@@ -9,21 +9,22 @@ module.exports = defineConfig({
   reporterOptions: isCI
     ? {}
     : {
-      reportDir: "reports",
-      reportFilename: "index",
-      charts: true,
-      inlineAssets: true,
-      reportPageTitle: "API Automation Report",
-      saveAllAttempts: false
-    },
+        reportDir: "reports",
+        reportFilename: "index",
+        charts: true,
+        inlineAssets: true,
+        reportPageTitle: "API Automation Report",
+        saveAllAttempts: false
+      },
 
   e2e: {
     specPattern: "cypress/e2e/api/**/*.cy.js",
 
     setupNodeEvents(on, config) {
-      // ❌ NO allure-cypress code here
+      // ✅ REQUIRED for allure-cypress (THIS FIXES YOUR ERROR)
+      require("allure-cypress/plugin")(on, config);
 
-      // Local-only mochawesome plugin
+      // Local-only mochawesome
       if (!isCI) {
         require("cypress-mochawesome-reporter/plugin")(on);
       }
