@@ -1,18 +1,82 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Install') {
-      steps { sh 'npm install' }
+    environment {
+        CYPRESS_currentEnv = 'qa'
+        CI = 'true'
     }
 
-    stage('Run API Tests') {
-      steps {
+    stages {
+
+      stage('Debug Workspace') {
+    steps {
         sh '''
-          npx cypress run \
-          --env env=qa,QA_USERNAME=$QA_USERNAME,QA_PASSWORD=$QA_PASSWORD
+          echo "Current directory:"
+          pwd
+
+          echo "Workspace contents:"
+          ls -la
+
+          echo "Check package-lock.json:"
+          ls -la package-lock.json || echo "❌ package-lock.json NOT FOUND"
         '''
-      }
     }
-  }
+}
+ stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Debug Workspace') {
+            steps {
+                sh 'ls -la'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                      npm ci
+                    '''
+                }
+            }
+        }
+
+        stage('Run Cypress API Tests') {
+            environment {
+                CYPRESS_QA_USERNAME = credentials('qa-username')
+                CYPRESS_QA_PASSWORD = credentials('qa-password')
+            }
+
+            steps {
+                ansiColor('xterm') {
+                    sh '''
+                      npx cypress run --browser electron --headless
+                    '''
+                }
+            }
+        }
+
+        stage('Publish Cypress Report') {
+            steps {
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports/mochawesome',
+                    reportFiles: '*.html',
+                    reportName: 'Cypress API Test Report'
+                ])
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'reports/**', fingerprint: true
+            cleanWs()
+        }
+    }
 }
