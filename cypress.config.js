@@ -7,14 +7,11 @@ module.exports = defineConfig({
 
   // 🔁 Switch reporter based on environment
   reporter: isCI
-    ? "@shelex/cypress-allure-plugin"
+    ? "spec"
     : "cypress-mochawesome-reporter",
 
   reporterOptions: isCI
-    ? {
-      // Allure (used in Jenkins)
-      resultsDir: "allure-results"
-    }
+    ? {}
     : {
       // Mochawesome (used locally)
       reportDir: "reports",
