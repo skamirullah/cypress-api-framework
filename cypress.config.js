@@ -13,7 +13,9 @@ module.exports = defineConfig({
     reportPageTitle: "API Automation Report",
     showTestCode: false,
     code: false,
-    saveAllAttempts: false
+    saveAllAttempts: false,
+    html: false,
+    json: true
   },
 
   e2e: {

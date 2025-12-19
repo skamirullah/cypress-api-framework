@@ -51,6 +51,15 @@ pipeline {
             }
         }
 
+        stage('Generate HTML Report') {
+            steps {
+                sh '''
+                  npm run report:merge
+                  npm run report:generate
+                '''
+            }
+        }
+
         stage('Debug Report Files') {
             steps {
                 sh '''

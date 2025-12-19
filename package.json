@@ -19,7 +19,9 @@
     "report:open": "open reports/index.html",
     "ci:test:qa": "npm run report:clean && cypress run --env env=qa",
     "ci:test:dev": "npm run report:clean && cypress run --env env=dev",
-    "test": "npm run test:qa"
+    "test": "npm run test:qa",
+    "report:merge": "mochawesome-merge reports/json/*.json > reports/report.json",
+    "report:generate": "marge reports/report.json --reportDir reports --inline"
   },
   "keywords": [
     "cypress",
