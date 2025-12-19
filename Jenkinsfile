@@ -77,7 +77,14 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'reports/**', fingerprint: true
+            script {
+                if (env.CI) {
+                    allure([
+                        includeProperties: false,
+                        results: [[path: 'allure-results']]
+                    ])
+                }
+            }
             cleanWs()
         }
     }
