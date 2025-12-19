@@ -1,29 +1,20 @@
 const { defineConfig } = require("cypress");
 const { getEnvConfig } = require("./cypress/utils/envManager");
-const { allureCypressTasks } = require("allure-cypress/task");
-
+const { allureCypressTasks } = require("allure-cypress/tasks");
 
 const isCI = process.env.CI === "true";
 
 module.exports = defineConfig({
-
-  // 🔁 Switch reporter based on environment
-  reporter: isCI
-    ? "spec"
-    : "cypress-mochawesome-reporter",
+  reporter: isCI ? "spec" : "cypress-mochawesome-reporter",
 
   reporterOptions: isCI
     ? {}
     : {
-      // Mochawesome (used locally)
       reportDir: "reports",
-      reportFilename: "index.html",
+      reportFilename: "index",
       charts: true,
-      embeddedScreenshots: false,
       inlineAssets: true,
       reportPageTitle: "API Automation Report",
-      showTestCode: false,
-      code: false,
       saveAllAttempts: false
     },
 
@@ -31,20 +22,15 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/api/**/*.cy.js",
 
     setupNodeEvents(on, config) {
-
+      // ✅ REQUIRED for allure-cypress
       on("task", allureCypressTasks());
-      // 🔌 Reporter plugins
-      if (isCI) {
-        // Allure plugin for Jenkins
-        // require("allure-cypress/on")(on, config);
-        // console.log("🔍 Cypress reporter: Allure (CI)");
-      } else {
-        // Mochawesome plugin for local
+
+      // Local-only mochawesome plugin
+      if (!isCI) {
         require("cypress-mochawesome-reporter/plugin")(on);
-        console.log("🔍 Cypress reporter: Mochawesome (Local)");
       }
 
-      // 🌍 Environment handling (UNCHANGED)
+      // 🌍 Env handling
       const envName = config.env.env || "qa";
       const envConfig = getEnvConfig(envName);
 

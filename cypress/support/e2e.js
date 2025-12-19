@@ -16,7 +16,3 @@
 // Import commands.js using ES2015 syntax:
 import "./commands";
 import "allure-cypress";
-// Load Mochawesome only for local runs
-if (process.env.CI !== "true") {
-    require("cypress-mochawesome-reporter/register");
-}
