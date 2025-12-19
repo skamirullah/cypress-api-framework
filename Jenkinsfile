@@ -54,6 +54,17 @@ pipeline {
             }
         }
 
+        stage('Debug Allure Results') {
+            steps {
+                    sh '''
+                    echo "Allure results content:"
+                    ls -la allure-results || true
+                    echo "Allure JSON preview:"
+                    head -n 20 allure-results/*.json || true
+                    '''
+            }
+      }
+
         stage('Publish Reports') {
             steps {
                 script {
